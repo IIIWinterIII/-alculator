@@ -4,10 +4,26 @@
   box-sizing: border-box;
 }
 
-body {
-  height: 100vh;
-  background: radial-gradient(circle, skyblue, steelblue);
+body, html {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #000000, #404040, #828282, #404040, #000000);
+      background-size: 400% 400%;
+      animation: gradientAnimation 75s infinite;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
