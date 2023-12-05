@@ -1,6 +1,6 @@
 {
-  "short_name": "MyPWA",
-  "name": "My Progressive Web App",
+  "short_name": "Калькулятор",
+  "name": "Калькулятор (by IIIWinterIII)",
   "description": "My PWA created with Create React App",
   "start_url": "./",
   "display": "standalone",
