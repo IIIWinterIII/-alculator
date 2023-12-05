@@ -111,7 +111,7 @@ function App() {
         setInput((prevInput) => prevInput.slice(0, -1) + value);
       } else {
         const isMinusFollowedByNumber = /^[-]?\d+/.test(input + value);
-        const isDecimalAlreadyPresent = /\.\d*/.test(input);
+        const isDecimalAlreadyPresent = /[+\-*/]\.\d*/.test(input);
 
         setInput((prevInput) => {
           if (isOperator && !isMinusFollowedByNumber) {
@@ -119,6 +119,9 @@ function App() {
             return prevInput;
           } else if (isDecimalAlreadyPresent && value === ".") {
             // Можно вводить только одну точку
+            return prevInput;
+          } else if (prevInput.endsWith("0.") && value === ".") {
+            // Если предыдущий ввод заканчивается на "0." и введена точка, просто возвращаем предыдущий ввод
             return prevInput;
           } else {
             // В остальных случаях добавляем новое значение к текущему вводу.
