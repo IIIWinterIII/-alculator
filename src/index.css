@@ -27,3 +27,11 @@ body, html {
     background-position: 0% 50%;
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: linear-gradient(45deg, #000000, #404040, #828282, #404040, #000000);
+      background-size: 400% 400%;
+      animation: gradientAnimation 75s infinite;
+  }
+}
