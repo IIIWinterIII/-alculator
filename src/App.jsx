@@ -15,40 +15,54 @@ import { useState, useEffect } from "react";
 function App() {
   const [input, setInput] = useState("0");
   const [result, setResult] = useState("");
-  useEffect(() => {    
+  //
+  useEffect(() => {
     const handleKeyDown = (event) => {
       const { key } = event;
-      if (key === 'Enter') {
-        handleCalculate('=');
-      } else if (key === 'Escape') {
-        handleReset('C');
-      } else if (key === 'Backspace') {
-        handleDelete('delete');
-      } else if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(key)) {
+      if (key === "Enter") {
+        handleCalculate("=");
+      } else if (key === "Escape") {
+        handleReset("C");
+      } else if (key === "Backspace") {
+        handleDelete("delete");
+      } else if (
+        ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"].includes(key)
+      ) {
         handleButtonClick(key);
-      } else if (['+', '-', '*', '/'].includes(key)) {
+      } else if (["+", "-", "*", "/"].includes(key)) {
         handleButtonClick(key);
-      } else if (key === '.') {
+      } else if (key === ".") {
         handleButtonClick(key);
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    
+    window.addEventListener("keydown", handleKeyDown);
+
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input, result]);
-  
 
   const handleButtonClick = (value) => {
     // Проверка, если введена точка после "0"
     const isDecimalFollowedByZero = input === "0" && value === ".";
     // Проверка, если текущий ввод начинается с минуса (отрицательное число)
     const isMinus = /^[-]?\d+/.test(input);
+    const totalLength = input.length + result.length;
 
-    if (/[-+*/]$/.test(input) && value === ".") {
+    if (totalLength >= 90) {
+      // Если суммарная длина больше или равна 90, ничего не делаем
+      return;
+    }
+
+    if (input.length > 25) {
+      setResult("Limit");
+      setInput((prevInput) => {
+        setResult("");
+        setInput(prevInput + value);
+      });
+    } else if (/[-+*/]$/.test(input) && value === ".") {
       setInput(input + "0" + value);
     } else if (input.endsWith(".") && /[+\-*/]/.test(value)) {
       setInput(input.slice(0, -1) + value);
@@ -58,12 +72,11 @@ function App() {
       setInput((input) => {
         if (input === "0" || input === "-") {
           return "0" + value;
-        } 
+        }
       });
-    } else if (input === "0" && /[0-9]/.test(value) ) {
+    } else if (input === "0" && /[0-9]/.test(value)) {
       setInput(value);
       setResult("");
-
     } else if (result && value) {
       setInput(result + value);
       setResult("");
