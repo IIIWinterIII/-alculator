@@ -2,7 +2,7 @@
   "name": "calculator",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://iiiwinteriii.github.io/Calculator/",
+  "homepage": "https://iiiwinteriii.github.io/calculator/",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.1",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
