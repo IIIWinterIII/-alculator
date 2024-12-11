@@ -15,8 +15,7 @@ import { useState, useEffect } from "react";
 function App() {
   const [input, setInput] = useState("0");
   const [result, setResult] = useState("");
-  //
-  useEffect(() => {
+    useEffect(() => {
     const handleKeyDown = (event) => {
       const { key } = event;
       if (key === "Enter") {
@@ -42,18 +41,15 @@ function App() {
       window.removeEventListener("keydown", handleKeyDown);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [input, result]);
+      }, [input, result]);
 
   const handleButtonClick = (value) => {
-    // Проверка, если введена точка после "0"
-    const isDecimalFollowedByZero = input === "0" && value === ".";
-    // Проверка, если текущий ввод начинается с минуса (отрицательное число)
-    const isMinus = /^[-]?\d+/.test(input);
+        const isDecimalFollowedByZero = input === "0" && value === ".";
+        const isMinus = /^[-]?\d+/.test(input);
     const totalLength = input.length + result.length;
 
     if (totalLength >= 90) {
-      // Если суммарная длина больше или равна 90, ничего не делаем
-      return;
+            return;
     }
 
     if (input.length > 25) {
@@ -83,20 +79,15 @@ function App() {
     } else if (input === "0." && /[+\-*/]/.test(value)) {
       setInput("0." + value);
     } else if (input === "0" && value === "-" && isMinus) {
-      // Если текущий ввод "0", введен знак минуса, и на экране уже есть минус,
-      // устанавливаем только знак минуса.
-      setInput(value);
+                  setInput(value);
     } else if (isDecimalFollowedByZero) {
-      // Если введена точка и на экране только "0", заменяем "0.".
-      setInput("0.");
+            setInput("0.");
     } else if (
       input === "0" ||
       result === "Ошибка" ||
       (result !== "" && input === "=")
     ) {
-      // Если текущий ввод "0", или отображается ошибка, или введена точка после "0",
-      // устанавливаем новое значение вместо текущего и сбрасываем результат.
-      setInput(value);
+                  setInput(value);
       setResult("");
     } else {
       const lastChar = input[input.length - 1];
@@ -104,28 +95,22 @@ function App() {
       const isLastCharOperator = /[+\-*/]/.test(lastChar);
 
       if (input === "0" && value === "-") {
-        // Если текущий ввод "0" и введен знак минуса, устанавливаем только знак минуса.
-        setInput(value);
+                setInput(value);
       } else if (isOperator && isLastCharOperator) {
-        // Если введен оператор и последний символ тоже оператор, заменяем последний оператор.
-        setInput((prevInput) => prevInput.slice(0, -1) + value);
+                setInput((prevInput) => prevInput.slice(0, -1) + value);
       } else {
         const isMinusFollowedByNumber = /^[-]?\d+/.test(input + value);
         const isDecimalAlreadyPresent = /[+\-*/]\.\d*/.test(input);
 
         setInput((prevInput) => {
           if (isOperator && !isMinusFollowedByNumber) {
-            // Нельзя вводить оператор после числа без оператора, если перед оператором не цифра
-            return prevInput;
+                        return prevInput;
           } else if (isDecimalAlreadyPresent && value === ".") {
-            // Можно вводить только одну точку
-            return prevInput;
+                        return prevInput;
           } else if (prevInput.endsWith("0.") && value === ".") {
-            // Если предыдущий ввод заканчивается на "0." и введена точка, просто возвращаем предыдущий ввод
-            return prevInput;
+                        return prevInput;
           } else {
-            // В остальных случаях добавляем новое значение к текущему вводу.
-            return prevInput + value;
+                        return prevInput + value;
           }
         });
       }
