@@ -145,19 +145,4 @@ button:hover {
   background-color: rgb(50, 50, 50);
 }
 
-/* Адаптация для мобильных устройств */
-@media (max-width: 768px) { 
-  .calculator {
-    width: 90vh;
-    height: 90vh;
-  }
-  
-}
-
-@media (max-width: 480px) { 
-  .calculator {
-    width: 90vh;
-    height: 90vh;
-  }
-}
 
